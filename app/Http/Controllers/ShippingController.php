@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Crypt;
 
 class ShippingController extends Controller
 {
+    private $baseFee = 3.85;
+    private $perKmFee = 0.78;
         // Point 1
     public function calculateShipping(Request $request)
     {
+        $baseFee = $this->baseFee;
+        $perKmFee = $this->perKmFee;
+
         $validated = $request->validate([
             'origin_lat' => 'required|numeric',
             'origin_lng' => 'required|numeric',
@@ -42,7 +47,8 @@ class ShippingController extends Controller
                     'distance_km'  => (float) $distanceKm,
                     'distance_from_origin_to_destination' => "{$validated['origin_lat']},{$validated['origin_lng']}" .  " to " . "{$validated['dest_lat']},{$validated['dest_lng']}",
                     'shipping_fee' => 'RM ' . number_format($shippingFee, 2),
-                    'shipping_fee_value' => "$shippingFee",
+                    'base_fee' => 'RM ' . number_format($baseFee, 2),
+                    'per_Km_Fee' => 'RM ' . number_format($perKmFee, 2),
                     'currency' => 'RM'
                 ];
 
@@ -72,15 +78,12 @@ class ShippingController extends Controller
         // Point 10
     private function calculateFee($distance)
     {
-        $baseFee = 5;
-        $perKmFee = 1.5;
-
-        if ($distance <= 3) {
-            return $baseFee;
+        if ($distance <= 2) {
+            return $this->baseFee;
         }
 
-        $extraDistance = ceil($distance - 3); 
+        $extraDistance = ceil($distance - 2); 
         
-        return $baseFee + ($extraDistance * $perKmFee);
+        return $this->baseFee + ($extraDistance * $this->perKmFee);
     }
 }
