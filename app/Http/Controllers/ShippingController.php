@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Crypt;
 
 class ShippingController extends Controller
 {
-    private $baseFee = 3.85;
-    private $perKmFee = 0.78;
+    private $baseFee = 3.85; //Test case
+    private $perKmFee = 0.78; //Test case
         // Point 1
     public function calculateShipping(Request $request)
     {
@@ -27,13 +27,13 @@ class ShippingController extends Controller
 
         // Point 2
         try {
-            $mockUrl = 'http://127.0.0.1:8000/api/mock-net-map/distance';            
+            $mockUrl = 'http://127.0.0.1:8000/api/mock-net-map/distance'; //Test Case Mock .NET Map Server URL
             $mapResponse = Http::timeout(5)->post($mockUrl, [
                 'origin'      => "{$validated['origin_lat']},{$validated['origin_lng']}",
                 'destination' => "{$validated['dest_lat']},{$validated['dest_lng']}"
             ]);
 
-        // Point 3
+        // Point 3 Test Case Response Mock .NET Map Server
             if ($mapResponse->failed()) {
                 throw new \Exception('Failed Getting response from Map Server .NET (mock). ');
             }

@@ -12,7 +12,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/mock-net-map/distance', function (){
     return response()->json([
         'status' => 'success',
-        'distance_in_km' => 7.56
+        'distance_in_km' => 7.56 //Test Case Distance in KM from Mock .NET Map Server
     ]);
 });
 
