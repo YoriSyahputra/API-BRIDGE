@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Crypt;
+use App\Private\PrivateKeyScheme;
 
 class ShippingController extends Controller
 {
@@ -53,9 +54,11 @@ class ShippingController extends Controller
                 ];
 
         // Ponit 6
-            if ($request->input('pass') === '123') {
+        $inputPass = $request->input('pass');
+
+            if ($inputPass === PrivateKeyScheme::getPrivateKey('first') || $inputPass === PrivateKeyScheme::getPrivateKey('second')) {
                 $finalData = $realData;
-            }else{
+            } else {
                 $finalData = Crypt::encryptString(json_encode($realData));
             }
 
