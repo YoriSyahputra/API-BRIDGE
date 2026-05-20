@@ -45,8 +45,8 @@ class ShippingController extends Controller
 
         // Point 5
             $realData = [
-                    'distance_km'  => (float) $distanceKm,
                     'distance_from_origin_to_destination' => "{$validated['origin_lat']},{$validated['origin_lng']}" .  " to " . "{$validated['dest_lat']},{$validated['dest_lng']}",
+                    'distance_km'  => (float) $distanceKm,
                     'shipping_fee_total' => 'RM ' . number_format($shippingFee, 2),
                     'base_fee' => 'RM ' . number_format($baseFee, 2),
                     'per_Km_Fee' => 'RM ' . number_format($perKmFee, 2),
