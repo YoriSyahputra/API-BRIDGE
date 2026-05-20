@@ -10,12 +10,11 @@ use App\Private\PrivateKeyScheme;
 
 class ShippingController extends Controller
 {
-    private $baseFee = 3.85; //Test case
-    private $perKmFee = 0.78; //Test case
-        // Point 1
+    private $perKmFee = 0.56; //Test case
+
+    // Point 1
     public function calculateShipping(Request $request)
     {
-        $baseFee = $this->baseFee;
         $perKmFee = $this->perKmFee;
 
         $validated = $request->validate([
@@ -48,7 +47,6 @@ class ShippingController extends Controller
                     'distance_from_origin_to_destination' => "{$validated['origin_lat']},{$validated['origin_lng']}" .  " to " . "{$validated['dest_lat']},{$validated['dest_lng']}",
                     'distance_km'  => (float) $distanceKm,
                     'shipping_fee_total' => 'RM ' . number_format($shippingFee, 2),
-                    'base_fee' => 'RM ' . number_format($baseFee, 2),
                     'per_Km_Fee' => 'RM ' . number_format($perKmFee, 2),
                     'currency' => 'RM'
                 ];
@@ -70,6 +68,7 @@ class ShippingController extends Controller
         // Point 8
         } catch (\Exception $e) {
             Log::error('Middleware Routing Error: ' . $e->getMessage());
+
         // Point 9
             return response()->json([
                 'status'  => 'error',
@@ -81,12 +80,6 @@ class ShippingController extends Controller
         // Point 10
     private function calculateFee($distance)
     {
-        if ($distance <= 2) {
-            return $this->baseFee;
-        }
-
-        $extraDistance = ceil($distance - 2); 
-        
-        return $this->baseFee + ($extraDistance * $this->perKmFee);
+        return (float) $distance * $this->perKmFee;
     }
 }
