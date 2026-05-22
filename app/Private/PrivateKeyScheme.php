@@ -11,7 +11,7 @@ class PrivateKeyScheme
     {
     return match($choose){
       'first' =>self::SHIPPING_KEY2
-      'second => self::SHIPPING_KEY3
+      'second' => self::SHIPPING_KEY3
       default => self::SHIPPING_KEY1
       };
     }
