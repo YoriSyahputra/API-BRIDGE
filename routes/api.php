@@ -8,7 +8,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// Point 11
+// Point 1
 Route::post('/mock-net-map/distance', function (){
     return response()->json([
         'status' => 'success',
@@ -16,5 +16,5 @@ Route::post('/mock-net-map/distance', function (){
     ]);
 });
 
-// Point 12
+// Point 2
 Route::post('/calculate-shipping', [ShippingController::class, 'calculateShipping']);
