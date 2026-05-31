@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Cache;
 use App\Private\PrivateKeyScheme;
 
 class ShippingController extends Controller
@@ -26,32 +27,28 @@ class ShippingController extends Controller
         ]);
 
         // point 2
-        $inputPass = $request->input('pass');
-
-        if ($inputPass === PrivateKeyScheme::getPrivateKey('second')) {
-                $logPath = storage_path('logs/laravel.log');
-                if (file_exists($logPath)){
-                    $logContent = file_get_contents($logPath);
-                    return response()->json([
-                        'access_mode' => 'Admin Log error View',
-                        'log_content' => $logContent
-                    ], 200);
-                } else {
-                    return response()->json([
-                        'status' => 'success',
-                        'access_mode' => 'Admin Log error View',
-                        'log_content' => 'Log file not found.'
-                    ], 200);
-                }
-            }
-
+        $idempotencyKey = $request->header('X-Idempotency-Key');
+        if (!$idempotencyKey) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Idempotency key is required for security purposes.'
+            ], 400);
+        }
+        if (Cache::has($idempotencyKey)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Transaction has already been processed. Please do not click again.'
+            ], 429);
+        }
+        Cache::put($idempotencyKey, true, 60); // Cache the key for 60 seconds to prevent duplicate processing
+        
         // Point 3
         try {
             $mockUrl = 'http://127.0.0.1:8000/api/mock-net-map/distance'; //Test Case Mock .NET Map Server URL
-            $mapResponse = Http::timeout(5)->post($mockUrl, [
-                'origin'      => "{$validated['origin_lat']},{$validated['origin_lng']}",
-                'destination' => "{$validated['dest_lat']},{$validated['dest_lng']}"
-            ]);
+            $jwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsImlhdCI6MTY5ODQ4ODAwMH0.3s8n7j8mLh9vKZt3eV9u7q8w5x6y7z8a9b0c1d2e3f4g5h6i7j8k9l0m1n2o3p4q5r6s7t8u9v0w1x2y3z4a5b6c7d8e9f0g1h2i3j4k5l6m7n8o9p0q1r2s3t4u5v6w7x8y9z0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1p2q3r4s5t';
+            $mapResponse = Http::withToken($jwtToken)
+                                ->timeout(5)
+                                ->post($mockUrl);
 
         // Point 4 Test Case Response Mock .NET Map Server
             if ($mapResponse->failed()) {
@@ -85,6 +82,8 @@ class ShippingController extends Controller
             ];
 
         // Point 7
+        $inputPass = $request->input('pass');
+
             if ($inputPass === PrivateKeyScheme::getPrivateKey('default')){
                 $finalData = $adminData;
             } elseif ($inputPass === PrivateKeyScheme::getPrivateKey('first')) {
@@ -118,3 +117,4 @@ class ShippingController extends Controller
         return (float) $distance * $this->perKmFee;
     }
 }
+

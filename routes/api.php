@@ -9,7 +9,15 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Point 1
-Route::post('/mock-net-map/distance', function (){
+Route::post('/mock-net-map/distance', function (Request $request) {
+    $token = $request->bearerToken();
+    if (!$token){
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Unauthorized. No token provided.'
+         ], 401);
+    }
+    
     return response()->json([
         'status' => 'success',
         'distance_in_km' => 7.56 //Test Case Distance in KM from Mock .NET Map Server
