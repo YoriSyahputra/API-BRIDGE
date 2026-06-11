@@ -42,6 +42,7 @@ class ShippingController extends Controller
         }
         Cache::put($idempotencyKey, true, 60); // Cache the key for 60 seconds to prevent duplicate processing
         
+        
         // Point 3
         try {
             $mockUrl = 'http://127.0.0.1:8000/api/mock-net-map/distance'; //Test Case Mock .NET Map Server URL
@@ -117,4 +118,3 @@ class ShippingController extends Controller
         return (float) $distance * $this->perKmFee;
     }
 }
-
