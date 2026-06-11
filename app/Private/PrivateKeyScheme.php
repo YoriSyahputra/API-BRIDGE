@@ -3,15 +3,22 @@ namespace App\Private;
 
 class PrivateKeyScheme
 {
-    private const string SHIPPING_KEY1 = '(......)'; // Set Your Private Key for Admin Here
-    private const string SHIPPING_KEY2 = '(......)'; // Set Your Private Key for User/Customer Here
+   private static function getKey1(): string
+    {
+        return env('SHIPPING_KEY_ADMIN');
+    }
+
+    private static function getKey2(): string
+    {
+        return env('SHIPPING_KEY_USER');
+    }
 
     public static function getPrivateKey($choose = 'first'): string
     {
 
     return match($choose){
-        default => self::SHIPPING_KEY1,
-        'first' =>self::SHIPPING_KEY2
+        default => self::getKey1(),
+        'first' =>self::getKey2()
       };
     }
 }

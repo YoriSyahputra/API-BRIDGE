@@ -12,7 +12,11 @@ use App\Private\PrivateKeyScheme;
 class ShippingController extends Controller
 {
     
-    private $perKmFee = ("......"); // Set Your Per Km Fee Here
+    private $perKmFee;
+
+    public function __construct(){
+        $this->perKmFee = env('SHIPPING_FEE_PER_KM');
+    }
 
     // Point 1
     public function calculateShipping(Request $request)
@@ -46,8 +50,8 @@ class ShippingController extends Controller
         
         // Point 3
         try {
-            $realUrl = '(......)'; //Real .NET Map Server URL
-            $jwtToken = '(......)'; // Set your JWT Token
+            $realUrl = env('MAP_SERVER_URL'); //Real .NET Map Server URL
+            $jwtToken = env('MAP_SERVER_JWT'); // Set your JWT Token
             $mapResponse = Http::withToken($jwtToken)
                                 ->timeout(10) // Set timeout for the request
                                 ->post($realUrl, [
