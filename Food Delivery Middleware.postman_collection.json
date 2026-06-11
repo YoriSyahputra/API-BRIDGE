@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "76ed5e28-1bc2-4db4-b82e-074ca40473f0",
+		"name": "Food Delivery Middleware",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48984714",
+		"_collection_link": "https://yorisyahputra-7e4f74a7-4225329.postman.co/workspace/Yori-Syahputra's-Workspace~95f506e4-a9dd-4e3a-8893-f9d00fa6a5ee/collection/48984714-76ed5e28-1bc2-4db4-b82e-074ca40473f0?action=share&source=collection_link&creator=48984714"
+	},
+	"item": [
+		{
+			"name": "Calculate Shipping Fee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Idempotency-Key",
+						"value": "req-test-delivery-004",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"origin_lat\": -6.24088,\n    \"origin_lng\": 106.84456,\n    \"dest_lat\": -6.2297,\n    \"dest_lng\": 106.8295,\n    \"pass\": \"C/qLUDR6I85iHlEkZLCHvQ==\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/calculate-shipping",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"calculate-shipping"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
