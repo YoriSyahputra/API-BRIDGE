@@ -61,7 +61,7 @@ CACHE_STORE=file
 
 # Shipping Calculation Variables (Adjust for production)
 SHIPPING_FEE_PER_KM=0.56
-MAP_SERVER_URL=[https://api.production-map-server.com/v1/distance](https://api.production-map-server.com/v1/distance)
+MAP_SERVER_URL=https://api.production-map-server.com/v1/distance
 MAP_SERVER_JWT=eyJhbGciOiJIUzI1Ni...
 
 # Access Gate Keys
