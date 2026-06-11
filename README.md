@@ -5,10 +5,13 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP Version">
-  <img src="https://img.shields.io/badge/Laravel-Framework-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel Version">
-  <img src="https://img.shields.io/badge/Octane-Powered-000000?style=for-the-badge&logo=linux&logoColor=white" alt="Octane Powered">
+  <img src="https://img.shields.io/badge/PHP-8.2%2B-333333?style=for-the-badge&logo=php&logoColor=white&labelColor=777BB4" alt="PHP Version">
+
+  <img src="https://img.shields.io/badge/Laravel-Framework-333333?style=for-the-badge&logo=laravel&logoColor=white&labelColor=FF2D20" alt="Laravel Version">
+  
+  <img src="https://img.shields.io/badge/Octane-Powered-333333?style=for-the-badge&logo=linux&logoColor=white&labelColor=000000" alt="Octane Powered">
 </p>
+
 
 <h1 align="center">Food Delivery Middleware API</h1>
 
