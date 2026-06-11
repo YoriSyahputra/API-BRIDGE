@@ -8,21 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// Point 1
-Route::post('/mock-net-map/distance', function (Request $request) {
-    $token = $request->bearerToken();
-    if (!$token){
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Unauthorized. No token provided.'
-         ], 401);
-    }
-    
-    return response()->json([
-        'status' => 'success',
-        'distance_in_km' => 7.56 //Test Case Distance in KM from Mock .NET Map Server
-    ]);
-});
-
-// Point 2
-Route::post('/calculate-shipping', [ShippingController::class, 'calculateShipping']);
+Route::post('/calculate-shipping',[ShippingController::class, 'calculateShipping']);

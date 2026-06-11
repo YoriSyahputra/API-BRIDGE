@@ -3,8 +3,8 @@ namespace App\Private;
 
 class PrivateKeyScheme
 {
-    private const string SHIPPING_KEY1 = 'C/qLUDR6I85iHlEkZLCHvQ==';
-    private const string SHIPPING_KEY2 = 'ex2vK6GQc9QsR011O7UOKA==';
+    private const string SHIPPING_KEY1 = '(......)'; // Set Your Private Key for Admin Here
+    private const string SHIPPING_KEY2 = '(......)'; // Set Your Private Key for User/Customer Here
 
     public static function getPrivateKey($choose = 'first'): string
     {
