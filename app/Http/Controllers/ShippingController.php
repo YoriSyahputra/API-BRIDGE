@@ -78,7 +78,7 @@ class ShippingController extends Controller
                 'dest_lat' => $validated['dest_lat'],
                 'dest_lng' => $validated['dest_lng'],
                 'distance_km' => (float) $distanceKm,
-                'shipping_fee_total' => (float) $shippingFee,
+                'shipping_fee_total' => 'RM ' . number_format($shippingFee, 2),
                 'per_km_fee' => (float) $perKmFee,
                 'currency' => 'RM',
                 'created_at' => now(),
