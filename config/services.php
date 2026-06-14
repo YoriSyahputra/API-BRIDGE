@@ -13,7 +13,15 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'map_server' => [
+        'url' => env('MAP_SERVER_URL'),
+        'jwt' => env('MAP_SERVER_JWT'),
+    ],
 
+    'shipping' => [
+        'fee_per_km' => env('SHIPPING_FEE_PER_KM'),
+    ],
+    
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

@@ -15,7 +15,7 @@ class ShippingController extends Controller
     private $perKmFee;
 
     public function __construct(){
-        $this->perKmFee = env('SHIPPING_FEE_PER_KM');
+        $this->perKmFee = config('services.shipping.fee_per_km');
     }
 
     // Point 1
@@ -50,8 +50,8 @@ class ShippingController extends Controller
         
         // Point 3
         try {
-            $realUrl = env('MAP_SERVER_URL'); //Real .NET Map Server URL
-            $jwtToken = env('MAP_SERVER_JWT'); // Set your JWT Token
+            $realUrl = config('services.map_server.url');
+            $jwtToken = config('services.map_server.jwt');
             $mapResponse = Http::withToken($jwtToken)
                                 ->timeout(10) // Set timeout for the request
                                 ->post($realUrl, [
