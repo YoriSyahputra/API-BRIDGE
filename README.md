@@ -69,6 +69,13 @@ SHIPPING_KEY_ADMIN=C/qLUDR6I85iHlEkZLCHvQ==
 SHIPPING_KEY_USER=ex2vK6GQc9QsR011O7UOKA==
 
 ```
+⚠️ Important Note: Every time you modify the .env file (such as switching the Map Server URL from local to production), you must clear the configuration cache to ensure Laravel reads the latest values. Run this command:
+
+```bash
+php artisan config:clear
+
+```
+
 ## ⚡ Running the Server (Octane)
 This project is configured for high-speed execution using Laravel Octane. Run the following command in your terminal to start the server:
 ```bash
