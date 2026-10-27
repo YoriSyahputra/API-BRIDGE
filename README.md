@@ -58,10 +58,9 @@ sequenceDiagram
         M->>S: Origin and destination + injected JWT
         S-->>M: Distance (km)
         M->>M: Fee = distance × SHIPPING_FEE_PER_KM
-        M-->>C: 200 OK, full payload (admin) or simplified payload (user)
+        M-->>C: "200 OK, full payload (admin) or simplified payload (user)"
     end
 ```
-
 ## 🧰 Tech stack
 
 | Layer         | Technology                                        |
